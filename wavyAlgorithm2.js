@@ -113,8 +113,6 @@ function sinkIsland(map) {
   const islandsQuantityElement = document.getElementById("islands-quantity");
   let islandsQuantity = +islandsQuantityElement.textContent.charAt(0) + 1;
 
-  console.log(islandsQuantity);
-
   islandsQuantityElement.innerHTML =
     islandsQuantity !== 1
       ? `${islandsQuantity} islands`
@@ -175,7 +173,6 @@ function handleInputChange() {
   const mapInputElement = document.getElementById("map-input");
 
   mapInputElement.addEventListener("keydown", (e) => {
-    console.log(e);
     if (
       e.target.value.length >= 16 ||
       (e.key !== "0" && e.key !== "1" && e.key !== "Backspace")
@@ -213,6 +210,7 @@ function handleInputValue(map) {
 function resetAlgorithm(map) {
   document.getElementById("restart").addEventListener("click", () => {
     const progressElement = document.getElementById("progress");
+
     const islandsQuantityElement = document.getElementById("islands-quantity");
     progressElement.textContent = "Wating";
     islandsQuantityElement.textContent = "0 Islands";
