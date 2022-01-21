@@ -1,4 +1,5 @@
 function printMap(map) {
+  console.log("print map");
   const matrix = document.querySelector(".matrix");
 
   for (let i = 0; i < map.length; i++) {
@@ -71,7 +72,7 @@ function checkNeighbours(row, cell, map) {
   if (top === 1) {
     map[row - 1][cell] = 2;
 
-    rerenderCell(i, j, map[i][j]);
+    rerenderCell(row, cell, map[row][cell]);
 
     isChanges = true;
   }
@@ -104,9 +105,14 @@ function sinkIsland(map) {
   console.log("sink the island");
 
   const islandsQuantityElement = document.getElementById("islands-quantity");
-  let islandsQuantity = islandsQuantityElement.textContent;
+  let islandsQuantity = +islandsQuantityElement.textContent.charAt(0) + 1;
 
-  islandsQuantityElement.innerHTML = +islandsQuantity + 1;
+  console.log(islandsQuantity);
+
+  islandsQuantityElement.innerHTML =
+    islandsQuantity !== 1
+      ? `${islandsQuantity} islands`
+      : `${islandsQuantity} island`;
 
   let color = generateColor();
 
@@ -122,13 +128,13 @@ function sinkIsland(map) {
   }
 }
 
-async function paintCell(rowId, cellId, color) {
+function paintCell(rowId, cellId, color) {
   let cell = document.querySelector(`.row-${rowId} .cell-${cellId}`);
 
   cell.style = `background-color: ${color};color:#fff`;
 }
 
-async function rerenderCell(rowId, cellId, newValue) {
+function rerenderCell(rowId, cellId, newValue) {
   let cell = document.querySelector(`.row-${rowId} .cell-${cellId}`);
 
   cell.innerHTML = newValue;
@@ -155,35 +161,56 @@ function delay() {
   return new Promise((res) => setTimeout(() => res(1), 1000));
 }
 
+function handleInputChange() {
+  const mapInputElement = document.getElementById("map-input");
+
+  mapInputElement.addEventListener("keydown", (e) => {
+    console.log(e);
+    if (
+      e.target.value.length >= 16 ||
+      (e.key !== "0" && e.key !== "1" && e.key !== "Backspace")
+    ) {
+      e.preventDefault();
+    }
+  });
+}
+
+function handleInputValue(map) {
+  const charachtersElement = document.getElementById("charachters");
+  const charachtersLength = document.getElementById("charachters").textContent;
+  const mapInputElement = document.getElementById("map-input");
+
+  mapInputElement.addEventListener("input", (e) => {
+    let inputedValue = e.target.value;
+
+    if (charachtersElement.textContent > 0) {
+      charachtersElement.innerHTML = charachtersLength - inputedValue.length;
+    }
+    if (inputedValue.length === 0) {
+      charachtersElement.innerHTML = charachtersLength;
+    }
+
+    let inputValueArray = inputedValue.split("");
+    let row = Math.floor((inputValueArray.length - 1) / 4);
+    let cell = (inputValueArray.length - 1) % 4;
+
+    map[row][cell] = +inputValueArray[inputValueArray.length - 1];
+
+    rerenderCell(row, cell, map[row][cell]);
+  });
+}
+
 window.onload = () => {
-  // const map = [
-  //   [0, 0, 1, 0],
-  //   [0, 0, 1, 1],
-  //   [0, 1, 0, 0],
-  //   [1, 0, 0, 1],
-  // ];
-
-  // const map = [
-  //   [0, 0, 1, 0],
-  //   [0, 0, 1, 1],
-  //   [0, 0, 0, 0],
-  //   [1, 1, 0, 1],
-  // ];
-
-  // const map = [
-  //   [1, 1, 1, 0],
-  //   [1, 1, 1, 1],
-  //   [0, 1, 1, 1],
-  //   [1, 1, 1, 0],
-  // ];
-
-  const map = [
-    [0, 1, 1, 1],
-    [1, 1, 1, 1],
-    [1, 1, 0, 1],
-    [1, 1, 1, 0],
+  let map = [
+    [0, 0, 1, 0],
+    [0, 0, 1, 1],
+    [0, 1, 0, 0],
+    [1, 0, 0, 1],
   ];
 
   printMap(map);
   startAlgorithm(map);
+
+  handleInputChange();
+  handleInputValue(map);
 };
