@@ -213,7 +213,9 @@ function handleInputValue(map) {
 function resetAlgorithm(map) {
   document.getElementById("restart").addEventListener("click", () => {
     const progressElement = document.getElementById("progress");
+    const islandsQuantityElement = document.getElementById("islands-quantity");
     progressElement.textContent = "Wating";
+    islandsQuantityElement.textContent = "0 Islands";
 
     for (let i = 0; i < map.length; i++) {
       for (let j = 0; j < map.length; j++) {
