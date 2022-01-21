@@ -26,6 +26,10 @@ function createHTMLElement(tag, identificatorName, identificatorVal) {
 
 async function findOne(map) {
   await delay();
+
+  const progressElement = document.getElementById("progress");
+  progressElement.textContent = "In progress";
+
   for (let i = 0; i < map.length; i++) {
     for (let j = 0; j < map.length; j++) {
       if (map[i][j] === 1) {
@@ -39,6 +43,8 @@ async function findOne(map) {
       }
     }
   }
+
+  progressElement.textContent = "Done";
 }
 
 async function findTwo(map) {
@@ -128,10 +134,10 @@ function sinkIsland(map) {
   }
 }
 
-function paintCell(rowId, cellId, color) {
+function paintCell(rowId, cellId, color, font = "#fff") {
   let cell = document.querySelector(`.row-${rowId} .cell-${cellId}`);
 
-  cell.style = `background-color: ${color};color:#fff`;
+  cell.style = `background-color: ${color};color:${font}`;
 }
 
 function rerenderCell(rowId, cellId, newValue) {
@@ -152,7 +158,11 @@ function generateColor() {
 }
 
 function startAlgorithm(map) {
+  const progressElement = document.getElementById("progress");
+
   document.getElementById("start").addEventListener("click", () => {
+    progressElement.textContent = "In progress";
+
     findOne(map);
   });
 }
@@ -200,6 +210,21 @@ function handleInputValue(map) {
   });
 }
 
+function resetAlgorithm(map) {
+  document.getElementById("restart").addEventListener("click", () => {
+    const progressElement = document.getElementById("progress");
+    progressElement.textContent = "Wating";
+
+    for (let i = 0; i < map.length; i++) {
+      for (let j = 0; j < map.length; j++) {
+        map[i][j] = 0;
+        rerenderCell(i, j, map[i][j]);
+        paintCell(i, j, "transparent", "#000");
+      }
+    }
+  });
+}
+
 window.onload = () => {
   let map = [
     [0, 0, 1, 0],
@@ -213,4 +238,6 @@ window.onload = () => {
 
   handleInputChange();
   handleInputValue(map);
+
+  resetAlgorithm(map);
 };
