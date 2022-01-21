@@ -1,0 +1,139 @@
+/* .timer {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #af12d6, #bf1231);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 100px;
+}
+.timer > span {
+  position: relative;
+}
+.timer > span::before {
+  content: "";
+  position: absolute;
+  font-size: 100px;
+  top: -100%;
+}
+.timer > span.timer__minutes::before {
+  animation: countdownMin step-end forwards;
+  animation-duration: 600s;
+}
+.timer > span.timer__fsec::before {
+  animation: countdownSec step-end forwards;
+  animation-duration: 60s;
+}
+.timer > span.timer__lsec::before {
+  animation: countdownSec step-end infinite;
+  animation-duration: 10s;
+}
+
+@keyframes countdownSec {
+  0% {
+    content: "9";
+  }
+  10% {
+    content: "8";
+  }
+  20% {
+    content: "7";
+  }
+  30% {
+    content: "6";
+  }
+  40% {
+    content: "5";
+  }
+  50% {
+    content: "4";
+  }
+  60% {
+    content: "3";
+  }
+  70% {
+    content: "2";
+  }
+  80% {
+    content: "1";
+  }
+  90% {
+    content: "0";
+  }
+  100% {
+    content: "0";
+  }
+}
+
+@keyframes countdownMin {
+  0% {
+    content: "9";
+  }
+  10% {
+    content: "8";
+  }
+  20% {
+    content: "7";
+  }
+  30% {
+    content: "6";
+  }
+  40% {
+    content: "5";
+  }
+  50% {
+    content: "4";
+  }
+  60% {
+    content: "3";
+  }
+  70% {
+    content: "2";
+  }
+  80% {
+    content: "1";
+  }
+  90% {
+    content: "0";
+  }
+  100% {
+    content: "0";
+  }
+} */
+.matrix > p {
+  margin: 0;
+}
+.matrix > p > span {
+  display: inline-block;
+  margin: 5px 10px;
+  padding: 0 5px;
+  font-size: 20px;
+  transition: 0.5s ease;
+}
+.islands-block {
+  margin-top: 30px;
+  font-size: 22px;
+}
+.color-1 {
+  background-color: green;
+  color: #fff;
+}
+.color-2 {
+  background-color: red;
+  color: #fff;
+}
+.color-3 {
+  background-color: blue;
+  color: #fff;
+}
+.color-4 {
+  background-color: violet;
+  color: #fff;
+}
+.color-5 {
+  background-color: gold;
+  color: #fff;
+}
